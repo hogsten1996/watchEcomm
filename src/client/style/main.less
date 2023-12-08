@@ -1,0 +1,272 @@
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+html,body,.App{
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.App{
+  padding-top: @navHeightMobile;
+
+  @media screen and (min-width: 600px) {
+    padding-top: @navHeight;
+  }
+
+
+}
+
+
+
+.avatar{
+  height: 50px;;
+  width: 50px;
+  border-radius: 50px;
+  background-color: @tint;
+  color:@f3;
+  .flexInit();
+  .flexCenterRow();
+  margin: 8px 0;
+  overflow: hidden;
+
+  img{
+    height: 100%;
+  }
+}
+
+.searchLoad{
+  margin-top: 10px;
+}
+
+button{
+  .flexInit();
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  min-width: 30px;
+  .pad(8px 25px);
+  border-radius: 30px;
+  border: none;
+  margin: 8px 0;
+  cursor: pointer;
+  line-height: 0;
+  outline: none;
+  .main();
+  transition: 0.125s;
+  box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
+
+  &.warning{
+    &:hover{
+      background-color: @warn;
+      color: white;
+    }
+  }
+
+  &.submit{
+    &:hover{
+      background-color: @good;
+      color: white;
+    }
+  }
+
+  &:hover{
+    .minor();
+  }
+}
+
+input[type=text],input[type=password]{
+  margin-top: 10px;
+  outline: none;
+  border: solid black 2px;
+  //.side();
+  background-color: @tint;
+  color: white;
+  height: 35px;
+  .flexInit();
+  justify-content: flex-start;
+  align-items: center;
+  .pad(8px);
+  width: 100%;border-radius: 35px;
+  &:focus{
+    border: blue 5px solid;
+  }
+}
+
+
+section{
+  .flexInit();
+  .flexCenterColumn();
+  min-height: 100vh;
+  @media screen and (min-width: @tablet){
+    .flexAroundColumn();
+  }
+
+  @media screen and (min-width: @desktop){
+
+  }
+}
+
+.form{
+  width: 100%;
+  .pad(16px);
+  position: relative;
+
+  *{
+    margin: 10px 0;
+  }
+
+  label{
+    margin-bottom: 10px;
+  }
+
+
+
+  .error{
+    color: @warn;
+  }
+
+  @media screen and (min-width: @tablet) {
+    .rounded();
+    width: @mb;
+  }
+
+  @media screen and (min-width: @desktop){
+    width: @tablet;
+  }
+
+}
+
+.overlay{
+  .flexInit();
+  .flexCenterColumn();
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: @sideO;
+  z-index: 100;
+  .pad(16px);
+
+  .close{
+    color: red;
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    cursor: pointer;
+  }
+}
+
+.fillOverlay{
+  background-color: @main;
+  .pad(8px);
+  .rounded();
+  overflow-y: scroll;
+
+  .post{
+    background: none;
+  }
+}
+
+.inactive{
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+::placeholder {
+  color:@side;
+}
+
+.searchBar{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .clear{
+    cursor: pointer;
+    color: @warn;
+    position: absolute;
+    right: 30%;
+    @media screen and (min-width: 750px){
+      right: 20%;
+    }
+    @media screen and (min-width: @desktop){
+      right: 18%;
+    }
+  }
+  .pad(10px);
+
+  button{
+    margin: 0 0 0 10px;
+    width: 15%;
+    span{
+      display: none;
+      @media screen and (min-width: @desktop){
+        display: block;
+      }
+    }
+    svg{
+      @media screen and (min-width: @desktop){
+        display: none;
+      }
+    }
+  }
+
+  input{
+    margin: 0;
+  }
+
+  @media screen and (min-width: @tablet) {
+    width: @mb;
+    margin: 8px 0;
+  }
+
+  @media screen and (min-width: @desktop) {
+    width: @tablet;
+  }
+}
+
+.searchWrap{
+  .flexInit();
+  .flexCenterRow();
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+.createForm{
+  position: relative;
+  .load{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color:@f1;
+  }
+}
