@@ -8,4 +8,82 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       Int         @id @default(autoincrement())
+  email    String      @unique
+  password String
+  username String      @unique
+  cart     CartWatch[]
+  wishlist Wishlist[]
+  orders   Order[]
+}
 
+model Watch {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  image       String
+  image2      String?
+  image3      String?
+  image4      String?
+  tags        Tag[]
+  cart        CartWatch[]
+  wishlist    Wishlist[]
+  orders      Order[]
+  OrderItem   OrderItem[]
+  WatchTags   WatchTags[]
+}
+
+model CartWatch {
+  id       Int   @id @default(autoincrement())
+  user     User  @relation(fields: [userId], references: [id])
+  userId   Int
+  watch    Watch @relation(fields: [watchId], references: [id])
+  watchId  Int
+  quantity Int
+}
+
+model Wishlist {
+  id      Int   @id @default(autoincrement())
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int
+  watch   Watch @relation(fields: [watchId], references: [id])
+  watchId Int
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      Int
+  items       OrderItem[]
+  totalAmount Float
+  createdAt   DateTime    @default(now())
+  Watch       Watch?      @relation(fields: [watchId], references: [id])
+  watchId     Int?
+}
+
+model OrderItem {
+  id        Int   @id @default(autoincrement())
+  order     Order @relation(fields: [orderId], references: [id])
+  orderId   Int
+  watch     Watch @relation(fields: [watchId], references: [id])
+  watchId   Int
+  quantity  Int
+  unitPrice Float
+}
+
+model Tag {
+  id        Int         @id @default(autoincrement())
+  name      String
+  watches   Watch[]
+  watchtags WatchTags[]
+}
+
+model WatchTags {
+  id      Int   @id @default(autoincrement())
+  watchId Int
+  tagId   Int
+  watch   Watch @relation(fields: [watchId], references: [id])
+  tag     Tag   @relation(fields: [tagId], references: [id])
+}
