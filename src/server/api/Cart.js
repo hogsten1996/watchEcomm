@@ -5,6 +5,4 @@ const prisma = new PrismaClient()
 
 
 
-
-
 module.exports = router;

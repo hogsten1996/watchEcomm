@@ -8,13 +8,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// schema.prisma
+
 model User {
-  id       Int         @id @default(autoincrement())
-  email    String      @unique
+  id       Int     @id @default(autoincrement())
+  username String  @unique
+  email    String  @unique
   password String
-  username String      @unique
-  cart     CartWatch[]
-  wishlist Wishlist[]
+  carts    Cart[]
   orders   Order[]
 }
 
@@ -22,68 +23,56 @@ model Watch {
   id          Int         @id @default(autoincrement())
   name        String
   description String
-  price       Float
+  details     String
   image       String
-  image2      String?
-  image3      String?
-  image4      String?
-  tags        Tag[]
-  cart        CartWatch[]
-  wishlist    Wishlist[]
-  orders      Order[]
+  image2      String
+  image3      String
+  image4      String
+  image5      String
+  price       Float
+  tags        Tag[]       @relation("WatchTag")
+  CartItem    CartItem[]
   OrderItem   OrderItem[]
-  WatchTags   WatchTags[]
-}
-
-model CartWatch {
-  id       Int   @id @default(autoincrement())
-  user     User  @relation(fields: [userId], references: [id])
-  userId   Int
-  watch    Watch @relation(fields: [watchId], references: [id])
-  watchId  Int
-  quantity Int
-}
-
-model Wishlist {
-  id      Int   @id @default(autoincrement())
-  user    User  @relation(fields: [userId], references: [id])
-  userId  Int
-  watch   Watch @relation(fields: [watchId], references: [id])
-  watchId Int
-}
-
-model Order {
-  id          Int         @id @default(autoincrement())
-  user        User        @relation(fields: [userId], references: [id])
-  userId      Int
-  items       OrderItem[]
-  totalAmount Float
-  createdAt   DateTime    @default(now())
-  Watch       Watch?      @relation(fields: [watchId], references: [id])
-  watchId     Int?
-}
-
-model OrderItem {
-  id        Int   @id @default(autoincrement())
-  order     Order @relation(fields: [orderId], references: [id])
-  orderId   Int
-  watch     Watch @relation(fields: [watchId], references: [id])
-  watchId   Int
-  quantity  Int
-  unitPrice Float
 }
 
 model Tag {
-  id        Int         @id @default(autoincrement())
-  name      String
-  watches   Watch[]
-  watchtags WatchTags[]
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  watches  Watch[]    @relation("WatchTag")
 }
 
-model WatchTags {
-  id      Int   @id @default(autoincrement())
-  watchId Int
-  tagId   Int
-  watch   Watch @relation(fields: [watchId], references: [id])
-  tag     Tag   @relation(fields: [tagId], references: [id])
+model Cart {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+  user      User       @relation(fields: [userId], references: [id])
+}
+
+model CartItem {
+  id       Int   @id @default(autoincrement())
+  cartId   Int
+  watchId  Int
+  quantity Int
+  cart     Cart  @relation(fields: [cartId], references: [id])
+  watch    Watch @relation(fields: [watchId], references: [id])
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  items     OrderItem[]
+  user      User        @relation(fields: [userId], references: [id])
+}
+
+model OrderItem {
+  id       Int   @id @default(autoincrement())
+  orderId  Int
+  watchId  Int
+  quantity Int
+  order    Order @relation(fields: [orderId], references: [id])
+  watch    Watch @relation(fields: [watchId], references: [id])
 }
