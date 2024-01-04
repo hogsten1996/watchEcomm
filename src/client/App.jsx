@@ -1,7 +1,9 @@
+import AllWatches from "./pages/AllWatches";
+
 function App() {
   return (
     <div className="App">
-      <p>hello</p>
+      <AllWatches />
     </div>
   );
 }
