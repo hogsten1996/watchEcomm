@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-// router.use("/posts", require("./post"))
-// router.use("/tags", require("./tag"))
-// router.use("/likes", require("./likes"))
-// router.use("/comments", require("./comment"))
-// router.use("/search", require("./search"))
-// router.use("/votes", require("./vote"))
+router.use("/order", require("./Order"))
+router.use("/user", require("./User"))
+router.use("/wishlist", require("./Wishlist"))
+router.use("/cart", require("./Cart"))
+router.use("/watch", require("./Watch"))
+
 
 module.exports = router;

@@ -6,7 +6,9 @@
     "dev": "nodemon src/server/main.js -w src/server",
     "start": "NODE_ENV=production node src/server/main.js",
     "build": "vite build",
-    "less": "less-watch-compiler src/client/style src/client index.less",
+    "less": "less-watch-compiler src/client/style src/client index.less"
+  },
+  "prisma": {
     "seed": "node prisma/seed.js"
   },
   "dependencies": {
@@ -14,10 +16,11 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@prisma/client": "^5.3.0",
+    "@prisma/client": "^5.7.1",
     "@reduxjs/toolkit": "^1.9.5",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
